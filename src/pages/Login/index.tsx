@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import backgroundImage from 'assets/images/login-background.png';
+import backgroundImage from 'assets/images/login-background-03.png';
 import oanseLogo from 'assets/images/oanse-logo.png';
 import { Copyright } from 'components/shared/Copyright';
 import { Link as RouterLink } from 'react-router-dom';
@@ -24,7 +24,8 @@ export function Login() {
     <Grid container component='main' sx={{ height: '100vh' }}>
       <Grid
         item
-        md={7}
+        lg={8}
+        xl={6}
         sx={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundRepeat: 'no-repeat',
@@ -36,7 +37,7 @@ export function Login() {
               : t.palette.grey[900],
         }}
       />
-      <Grid item xs={12} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} lg={4} xl={6} component={Paper} elevation={6} square>
         <Box
           sx={{
             my: 8,
