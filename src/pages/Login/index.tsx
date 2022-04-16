@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import backgroundImage from 'assets/images/login-background-03.png';
+import backgroundImage from 'assets/images/login-background-01.jpg';
 import oanseLogo from 'assets/images/oanse-logo.png';
 import { Copyright } from 'components/shared/Copyright';
 import { Link as RouterLink } from 'react-router-dom';
