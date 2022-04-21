@@ -1,15 +1,16 @@
 import { Login } from 'pages/Login';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Register } from 'pages/Register';
+import { BrowserRouter, Route, Routes as Router } from 'react-router-dom';
 
-export function AppRoutes() {
+export function Routes() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Router>
         <Route path='/' element={<Login />} />
-        <Route path='/register' element={<h1>Cadastro</h1>} />
+        <Route path='/register' element={<Register />} />
         <Route path='/home' element={<h1>Seja bem-vindo(a)</h1>} />
         <Route path='*' element={<h1>Not found</h1>} />
-      </Routes>
+      </Router>
     </BrowserRouter>
   );
 }
