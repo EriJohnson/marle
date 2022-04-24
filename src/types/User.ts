@@ -17,14 +17,14 @@ type Role = {
 export type User = {
   id?: string;
   email: string;
-  full_name: string;
-  birth_date: string;
+  fullName: string;
+  birthdate: string;
   username: string;
   password: string;
   phone?: string;
   club?: Club;
   role?: Role;
-  is_active?: boolean;
-  created_at?: string | Date;
-  updated_at?: string | Date;
+  isActive?: boolean;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 };
