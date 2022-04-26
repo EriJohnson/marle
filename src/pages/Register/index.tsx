@@ -14,16 +14,17 @@ import { Link as RouterLink } from 'react-router-dom';
 import { validationSchema } from './validationSchema';
 
 export function Register() {
+  const form = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: 'onBlur',
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    setValue,
-    clearErrors,
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-    mode: 'onBlur',
-  });
+    control,
+  } = form;
 
   const onSubmit = (data: any) => {
     console.log(JSON.stringify(data, null, 2));
@@ -91,10 +92,10 @@ export function Register() {
             <DatePicker
               name='birthdate'
               label='Data de nascimento'
-              register={register}
-              clearErrors={clearErrors}
-              setValue={setValue}
-              errors={errors}
+              openTo='year'
+              views={['year', 'month', 'day']}
+              control={control}
+              required
             />
           </Grid>
 
@@ -104,6 +105,7 @@ export function Register() {
               error={!!errors.username}
               helperText={errors.username?.message}
               label='Nome de usuário'
+              autoComplete='off'
               required
             />
           </Grid>
@@ -127,7 +129,7 @@ export function Register() {
               color='secondary'
               size='large'
               type='submit'
-              disabled={!isValid}
+              // disabled={!isValid}
             >
               Criar conta
             </Button>

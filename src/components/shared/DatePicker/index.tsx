@@ -1,52 +1,60 @@
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { TextField } from '@mui/material';
 import {
   DatePicker as MuiDatePicker,
   DatePickerProps,
-} from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { useState } from 'react';
+  LocalizationProvider,
+} from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import ptBR from 'dayjs/locale/pt-br';
-import dayjs from 'dayjs';
-import { FieldValues, UseFormReturn } from 'react-hook-form';
-import { TextField } from '@mui/material';
+import { Control, Controller } from 'react-hook-form';
+import { parseDateToISOString } from 'utils/parseDateToISOString';
 
-type DatePickerType = Omit<
+export type DatePickerComponentProps = Omit<
   DatePickerProps,
-  'onChange' | 'value' | 'renderInput'
-> &
-  Pick<UseFormReturn, 'register' | 'setValue' | 'clearErrors'> & {
-    name: string;
-    errors: FieldValues;
-  };
+  'value' | 'onChange' | 'renderInput'
+> & {
+  name: string;
+  control: Control<any>;
+  required?: boolean;
+};
 
-export function DatePicker(props: DatePickerType) {
-  const [date, setDate] = useState<Date | null | unknown>(null);
-
+export function DatePicker({
+  name,
+  required,
+  control,
+  ...rest
+}: DatePickerComponentProps): JSX.Element {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} locale={ptBR}>
-      <MuiDatePicker
-        value={date}
-        onChange={(newDate: any) => {
-          setDate(newDate);
-          props.setValue(props.name, dayjs(newDate).format('DD/MM/YYYY'));
-        }}
-        onOpen={() => props.clearErrors('birthdate')}
-        onAccept={() => props.clearErrors('birthdate')}
-        openTo='year'
-        views={['year', 'month', 'day']}
-        disableFuture
-        renderInput={params => (
-          <TextField
-            {...params}
-            {...props.register(props.name)}
-            error={props.errors[props.name] && true}
-            helperText={
-              props.errors[props.name] && props.errors[props.name].message
-            }
+    <Controller
+      name={name}
+      control={control}
+      render={({
+        field: { onChange, value, onBlur },
+        fieldState: { error },
+      }) => (
+        <LocalizationProvider dateAdapter={AdapterDayjs} locale={ptBR}>
+          <MuiDatePicker
+            {...rest}
+            value={value || ''}
+            onChange={(date, selectionState) => {
+              const parsedDate = parseDateToISOString(selectionState || date);
+
+              onChange(parsedDate);
+            }}
+            renderInput={params => {
+              return (
+                <TextField
+                  {...params}
+                  required={!!required}
+                  error={!!error}
+                  helperText={error && error?.message}
+                  onBlur={onBlur}
+                />
+              );
+            }}
           />
-        )}
-        {...props}
-      />
-    </LocalizationProvider>
+        </LocalizationProvider>
+      )}
+    />
   );
 }
