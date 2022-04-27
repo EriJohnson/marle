@@ -5,8 +5,6 @@ export const components = {
     },
     styleOverrides: {
       root: {
-        paddingTop: 16,
-        paddingBottom: 16,
         borderRadius: 8,
       },
     },

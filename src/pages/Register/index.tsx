@@ -31,18 +31,13 @@ export function Register() {
   };
 
   return (
-    <Container
-      maxWidth='sm'
-      sx={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
-      disableGutters
-    >
-      <Paper variant='outlined' sx={{ p: { xs: 3 } }} color='secondary'>
-        <Typography variant='h4'>Bem-vindo(a)</Typography>
+    <Container maxWidth='xs' disableGutters>
+      <Paper
+        variant='outlined'
+        sx={{ p: { xs: 3, sm: 5 }, my: { xs: 0, sm: 5 } }}
+        color='secondary'
+      >
+        <Typography variant='h5'>Bem-vindo(a)</Typography>
         <Typography variant='subtitle1' color='text.secondary'>
           Crie sua conta com seus dados pessoais.
         </Typography>
@@ -58,15 +53,15 @@ export function Register() {
         >
           <Grid item xs={12}>
             <TextField
-              {...register('fullName')}
               error={!!errors.fullName}
+              {...register('fullName')}
               helperText={errors.fullName?.message}
               label='Nome completo'
               required
             />
           </Grid>
 
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12}>
             <TextField
               {...register('email')}
               error={!!errors.email}
@@ -76,7 +71,7 @@ export function Register() {
             />
           </Grid>
 
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12}>
             <TextField
               {...register('phone')}
               error={!!errors.phone}
@@ -127,15 +122,15 @@ export function Register() {
               fullWidth
               variant='contained'
               color='secondary'
-              size='large'
               type='submit'
-              // disabled={!isValid}
+              disabled={!isValid}
+              size='large'
             >
               Criar conta
             </Button>
           </Grid>
 
-          <Grid container justifyContent='center' sx={{ mt: 4 }}>
+          <Grid container justifyContent='center' sx={{ mt: 3 }}>
             <Grid item>
               <Typography sx={{ display: 'inline' }} variant='body2'>
                 Já possui uma conta?
