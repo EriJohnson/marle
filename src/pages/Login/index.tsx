@@ -7,10 +7,10 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import backgroundImage from 'assets/images/login-background-01.jpg';
 import oanseLogo from 'assets/images/oanse-logo.png';
-import { Copyright } from 'components/shared/Copyright';
+import Copyright from 'components/shared/Copyright';
 import { Link as RouterLink } from 'react-router-dom';
 
-export function Login() {
+export default function Login() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

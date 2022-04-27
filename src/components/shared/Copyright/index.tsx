@@ -1,7 +1,7 @@
 import { Link, Stack, Typography } from '@mui/material';
 import HeartIcon from '@mui/icons-material/Favorite';
 
-export function Copyright(props: any) {
+export default function Copyright(props: any) {
   return (
     <Stack {...props} direction={'row'} alignItems='center' spacing={0.5}>
       <Typography variant='body2' color='text.secondary' align='center'>

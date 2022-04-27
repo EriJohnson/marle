@@ -8,12 +8,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { DatePicker } from 'components/shared/DatePicker';
+import DatePicker from 'components/shared/DatePicker';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { validationSchema } from './validationSchema';
 
-export function Register() {
+export default function Register() {
   const form = useForm({
     resolver: yupResolver(validationSchema),
     mode: 'onBlur',

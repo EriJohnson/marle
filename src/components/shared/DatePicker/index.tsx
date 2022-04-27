@@ -18,7 +18,7 @@ export type DatePickerComponentProps = Omit<
   required?: boolean;
 };
 
-export function DatePicker({
+export default function DatePicker({
   name,
   required,
   control,

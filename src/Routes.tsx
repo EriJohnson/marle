@@ -1,8 +1,8 @@
-import { Login } from 'pages/Login';
-import { Register } from 'pages/Register';
+import Login from 'pages/Login';
+import Register from 'pages/Register';
 import { BrowserRouter, Route, Routes as Router } from 'react-router-dom';
 
-export function Routes() {
+export default function Routes() {
   return (
     <BrowserRouter>
       <Router>
