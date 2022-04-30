@@ -50,6 +50,7 @@ export default function DatePicker({
                   helperText={error && error?.message}
                   onBlur={onBlur}
                   required={rest.required}
+                  type='tel'
                 />
               );
             }}

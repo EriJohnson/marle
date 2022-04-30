@@ -54,6 +54,7 @@ export default function PhoneInput({
           error={!!error}
           helperText={error && error?.message}
           InputProps={{ inputComponent: PhoneMaskInput as any }}
+          type='tel'
         />
       )}
     />

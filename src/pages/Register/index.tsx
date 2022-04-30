@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import DatePicker from 'components/shared/DatePicker';
 import PhoneInput from 'components/shared/PhoneInput';
+import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import validationSchema from './validationSchema';
@@ -73,6 +74,7 @@ export default function Register() {
               error={!!errors.email}
               helperText={errors.email?.message}
               label='Email'
+              type='email'
               required
             />
           </Grid>
@@ -93,6 +95,9 @@ export default function Register() {
               control={control}
               openTo='year'
               views={['year', 'month', 'day']}
+              minDate={dayjs().subtract(100, 'year')}
+              maxDate={dayjs()}
+              disableFuture
               required
             />
           </Grid>
@@ -103,6 +108,7 @@ export default function Register() {
               error={!!errors.username}
               helperText={errors.username?.message}
               label='Nome de usuário'
+              inputProps={{ maxLength: 24 }}
               autoComplete='off'
               required
             />
@@ -114,9 +120,9 @@ export default function Register() {
               error={!!errors.password}
               helperText={errors.password?.message}
               label='Senha'
-              type={'password'}
-              required
+              type='password'
               autoComplete='new-password'
+              required
             />
           </Grid>
 
