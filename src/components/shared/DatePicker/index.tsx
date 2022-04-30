@@ -1,9 +1,6 @@
-import TextField, {
-  BaseTextFieldProps,
-  TextFieldProps,
-} from '@mui/material/TextField';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import {
-  DatePicker as MuiDatePicker,
+  DesktopDatePicker as MuiDatePicker,
   DatePickerProps,
   LocalizationProvider,
 } from '@mui/x-date-pickers';
@@ -50,10 +47,10 @@ export default function DatePicker({
                   helperText={error && error?.message}
                   onBlur={onBlur}
                   required={rest.required}
-                  type='tel'
                 />
               );
             }}
+            disableOpenPicker
           />
         </LocalizationProvider>
       )}

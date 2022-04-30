@@ -37,15 +37,17 @@ export default function Register() {
       <Paper
         variant='outlined'
         sx={{
+          height: { xs: '100vh', sm: '100%' },
+          my: { xs: 0, sm: 5 },
           px: { xs: 3, sm: 5 },
           py: 5,
-          my: { xs: 0, sm: 5 },
-          height: { xs: '100vh', sm: '100%' },
         }}
         color='secondary'
       >
-        <Typography variant='h4'>Bem-vindo(a)</Typography>
-        <Typography variant='subtitle2' color='text.secondary' sx={{ mt: 1 }}>
+        <Typography variant='h4' gutterBottom>
+          Bem-vindo(a)
+        </Typography>
+        <Typography variant='subtitle2' color='text.secondary'>
           Por favor, crie sua conta com seus dados pessoais.
         </Typography>
 
@@ -96,7 +98,7 @@ export default function Register() {
               openTo='year'
               views={['year', 'month', 'day']}
               minDate={dayjs().subtract(100, 'year')}
-              maxDate={dayjs()}
+              maxDate={dayjs().subtract(1, 'year')}
               disableFuture
               required
             />
@@ -148,7 +150,7 @@ export default function Register() {
                 component={RouterLink}
                 to='/'
                 variant='body1'
-                sx={{ ml: 0.5, fontWeight: 'bold' }}
+                sx={{ ml: 0.5, fontWeight: 500 }}
                 tabIndex={-1}
               >
                 {'Fazer login'}
