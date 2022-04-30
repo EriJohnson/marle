@@ -1,4 +1,7 @@
-import { TextField } from '@mui/material';
+import TextField, {
+  BaseTextFieldProps,
+  TextFieldProps,
+} from '@mui/material/TextField';
 import {
   DatePicker as MuiDatePicker,
   DatePickerProps,
@@ -12,15 +15,14 @@ import { parseDateToISOString } from 'utils/parseDateToISOString';
 export type DatePickerComponentProps = Omit<
   DatePickerProps,
   'value' | 'onChange' | 'renderInput'
-> & {
-  name: string;
-  control: Control<any>;
-  required?: boolean;
-};
+> &
+  TextFieldProps & {
+    name: string;
+    control: Control;
+  };
 
 export default function DatePicker({
   name,
-  required,
   control,
   ...rest
 }: DatePickerComponentProps): JSX.Element {
@@ -38,17 +40,16 @@ export default function DatePicker({
             value={value || ''}
             onChange={(date, selectionState) => {
               const parsedDate = parseDateToISOString(selectionState || date);
-
               onChange(parsedDate);
             }}
             renderInput={params => {
               return (
                 <TextField
                   {...params}
-                  required={!!required}
                   error={!!error}
                   helperText={error && error?.message}
                   onBlur={onBlur}
+                  required={rest.required}
                 />
               );
             }}

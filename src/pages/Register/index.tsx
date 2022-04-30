@@ -9,14 +9,15 @@ import {
   Typography,
 } from '@mui/material';
 import DatePicker from 'components/shared/DatePicker';
+import PhoneInput from 'components/shared/PhoneInput';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
-import { validationSchema } from './validationSchema';
+import validationSchema from './validationSchema';
 
 export default function Register() {
   const form = useForm({
     resolver: yupResolver(validationSchema),
-    mode: 'onBlur',
+    mode: 'onTouched',
   });
 
   const {
@@ -31,7 +32,7 @@ export default function Register() {
   };
 
   return (
-    <Container maxWidth='xs' disableGutters>
+    <Container maxWidth='sm' disableGutters>
       <Paper
         variant='outlined'
         sx={{ p: { xs: 3, sm: 5 }, my: { xs: 0, sm: 5 } }}
@@ -72,14 +73,11 @@ export default function Register() {
           </Grid>
 
           <Grid item xs={12}>
-            <TextField
-              {...register('phone')}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
+            <PhoneInput
+              name='phone'
               label='Telefone'
+              control={control}
               required
-              type={'tel'}
-              inputProps={{ maxLength: 11 }}
             />
           </Grid>
 
@@ -87,9 +85,9 @@ export default function Register() {
             <DatePicker
               name='birthdate'
               label='Data de nascimento'
+              control={control}
               openTo='year'
               views={['year', 'month', 'day']}
-              control={control}
               required
             />
           </Grid>
@@ -123,8 +121,7 @@ export default function Register() {
               variant='contained'
               color='secondary'
               type='submit'
-              disabled={!isValid}
-              size='large'
+              // disabled={!isValid}
             >
               Criar conta
             </Button>
@@ -140,6 +137,7 @@ export default function Register() {
                 to='/'
                 variant='body1'
                 sx={{ ml: 0.5, fontWeight: 'bold' }}
+                tabIndex={-1}
               >
                 {'Fazer login'}
               </Link>

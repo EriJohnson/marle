@@ -6,7 +6,7 @@ Yup.setLocale(ptShort);
 
 const birthdateRegex = /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/;
 
-export const validationSchema = Yup.object().shape({
+const validationSchema = Yup.object().shape({
   fullName: Yup.string().required().min(8).max(64),
   email: Yup.string().required().email(),
   birthdate: Yup.string()
@@ -16,3 +16,5 @@ export const validationSchema = Yup.object().shape({
   username: Yup.string().required().min(6).max(24),
   password: Yup.string().required().min(8).max(24),
 });
+
+export default validationSchema;
