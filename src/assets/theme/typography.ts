@@ -1,8 +1,5 @@
 export const typography = {
-  fontFamily: "'Lato','Arial'",
-  fontWeightLight: 300,
-  fontWeightRegular: 400,
-  fontWeightBold: 700,
+  fontFamily: "'Inter','Arial'",
   h1: {
     fontWeight: 700,
   },
