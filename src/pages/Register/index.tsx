@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
-  Button,
   Container,
   Grid,
   Link,
@@ -23,7 +23,7 @@ export default function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
     control,
   } = form;
 
@@ -35,7 +35,12 @@ export default function Register() {
     <Container maxWidth='sm' disableGutters>
       <Paper
         variant='outlined'
-        sx={{ p: { xs: 3, sm: 5 }, my: { xs: 0, sm: 5 } }}
+        sx={{
+          px: { xs: 3, sm: 5 },
+          py: 5,
+          my: { xs: 0, sm: 5 },
+          height: { xs: '100vh', sm: '100%' },
+        }}
         color='secondary'
       >
         <Typography variant='h4'>Bem-vindo(a)</Typography>
@@ -115,19 +120,20 @@ export default function Register() {
             />
           </Grid>
 
-          <Grid item xs={12} sx={{ mt: 4 }}>
-            <Button
+          <Grid item xs={12}>
+            <LoadingButton
               fullWidth
               variant='contained'
               color='secondary'
               type='submit'
               disabled={!isValid}
+              loading={isSubmitting}
             >
               Criar conta
-            </Button>
+            </LoadingButton>
           </Grid>
 
-          <Grid container justifyContent='center' sx={{ mt: 3 }}>
+          <Grid container justifyContent='center' sx={{ mt: 4 }}>
             <Grid item>
               <Typography sx={{ display: 'inline' }} variant='body2'>
                 Já possui uma conta?
