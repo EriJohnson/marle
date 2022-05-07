@@ -21,7 +21,7 @@ export default function Login() {
   }
 
   return (
-    <Grid container component='main' sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '100vh' }}>
       <Grid
         item
         lg={8}
@@ -31,7 +31,7 @@ export default function Login() {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundColor: t =>
+          backgroundColor: (t) =>
             t.palette.mode === 'light'
               ? t.palette.grey[50]
               : t.palette.grey[900],
@@ -49,61 +49,61 @@ export default function Login() {
           }}
         >
           <Box
-            component='img'
-            alt='OANSE Logo'
+            component="img"
+            alt="OANSE Logo"
             src={oanseLogo}
             sx={{ height: 64 }}
           />
           <Box
-            component='form'
+            component="form"
             noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 5 }}
           >
             <TextField
-              margin='normal'
+              margin="normal"
               required
               fullWidth
-              id='email'
-              label='Email ou usuário'
-              name='email'
-              autoComplete='email'
+              id="email"
+              label="Email ou usuário"
+              name="email"
+              autoComplete="email"
               autoFocus
             />
             <TextField
-              margin='normal'
+              margin="normal"
               required
               fullWidth
-              name='password'
-              label='Senha'
-              type='password'
-              id='password'
-              autoComplete='current-password'
+              name="password"
+              label="Senha"
+              type="password"
+              id="password"
+              autoComplete="current-password"
             />
 
             <Button
-              type='submit'
+              type="submit"
               fullWidth
-              variant='contained'
+              variant="contained"
               sx={{ mt: 3 }}
-              color='secondary'
-              size='large'
+              color="secondary"
+              size="large"
             >
               Entrar
             </Button>
 
-            <Grid container justifyContent='center' sx={{ mt: 4 }}>
+            <Grid container justifyContent="center" sx={{ mt: 4 }}>
               <Grid item>
-                <Typography sx={{ display: 'inline' }} variant='body1'>
+                <Typography sx={{ display: 'inline' }} variant="body1">
                   Ainda não tem uma conta?
                 </Typography>
                 <Link
                   component={RouterLink}
-                  to='register'
-                  variant='body1'
+                  to="register"
+                  variant="body1"
                   sx={{ ml: 0.5, fontWeight: 'bold' }}
                 >
-                  {'Cadastre-se'}
+                  Cadastre-se
                 </Link>
               </Grid>
             </Grid>

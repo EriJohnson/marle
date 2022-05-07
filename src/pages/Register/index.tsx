@@ -33,39 +33,39 @@ export default function Register() {
   };
 
   return (
-    <Container maxWidth='sm' disableGutters>
+    <Container maxWidth="sm" disableGutters>
       <Paper
-        variant='outlined'
+        variant="outlined"
         sx={{
           height: { xs: '100vh', sm: '100%' },
           my: { xs: 0, sm: 5 },
           px: { xs: 3, sm: 5 },
           py: 5,
         }}
-        color='secondary'
+        color="secondary"
       >
-        <Typography variant='h4' gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Bem-vindo(a)
         </Typography>
-        <Typography variant='subtitle2' color='text.secondary'>
+        <Typography variant="subtitle2" color="text.secondary">
           Por favor, crie sua conta com seus dados pessoais.
         </Typography>
 
         <Grid
           container
-          component={'form'}
+          component="form"
           onSubmit={handleSubmit(onSubmit)}
           spacing={3}
           sx={{ mt: 1 }}
           noValidate
-          autoComplete='off'
+          autoComplete="off"
         >
           <Grid item xs={12}>
             <TextField
               error={!!errors.fullName}
               {...register('fullName')}
               helperText={errors.fullName?.message}
-              label='Nome completo'
+              label="Nome completo"
               required
             />
           </Grid>
@@ -75,16 +75,16 @@ export default function Register() {
               {...register('email')}
               error={!!errors.email}
               helperText={errors.email?.message}
-              label='Email'
-              type='email'
+              label="Email"
+              type="email"
               required
             />
           </Grid>
 
           <Grid item xs={12}>
             <PhoneInput
-              name='phone'
-              label='Telefone'
+              name="phone"
+              label="Telefone"
               control={control}
               required
             />
@@ -92,10 +92,10 @@ export default function Register() {
 
           <Grid item xs={12}>
             <DatePicker
-              name='birthdate'
-              label='Data de nascimento'
+              name="birthdate"
+              label="Data de nascimento"
               control={control}
-              openTo='year'
+              openTo="year"
               views={['year', 'month', 'day']}
               minDate={dayjs().subtract(100, 'year')}
               maxDate={dayjs().subtract(1, 'year')}
@@ -109,9 +109,9 @@ export default function Register() {
               {...register('username')}
               error={!!errors.username}
               helperText={errors.username?.message}
-              label='Nome de usuário'
+              label="Nome de usuário"
               inputProps={{ maxLength: 24 }}
-              autoComplete='off'
+              autoComplete="off"
               required
             />
           </Grid>
@@ -121,9 +121,9 @@ export default function Register() {
               {...register('password')}
               error={!!errors.password}
               helperText={errors.password?.message}
-              label='Senha'
-              type='password'
-              autoComplete='new-password'
+              label="Senha"
+              type="password"
+              autoComplete="new-password"
               required
             />
           </Grid>
@@ -131,9 +131,9 @@ export default function Register() {
           <Grid item xs={12}>
             <LoadingButton
               fullWidth
-              variant='contained'
-              color='secondary'
-              type='submit'
+              variant="contained"
+              color="secondary"
+              type="submit"
               disabled={!isValid}
               loading={isSubmitting}
             >
@@ -141,19 +141,19 @@ export default function Register() {
             </LoadingButton>
           </Grid>
 
-          <Grid container justifyContent='center' sx={{ mt: 4 }}>
+          <Grid container justifyContent="center" sx={{ mt: 4 }}>
             <Grid item>
-              <Typography sx={{ display: 'inline' }} variant='body2'>
+              <Typography sx={{ display: 'inline' }} variant="body2">
                 Já possui uma conta?
               </Typography>
               <Link
                 component={RouterLink}
-                to='/'
-                variant='body1'
+                to="/"
+                variant="body1"
                 sx={{ ml: 0.5, fontWeight: 500 }}
                 tabIndex={-1}
               >
-                {'Fazer login'}
+                Fazer login
               </Link>
             </Grid>
           </Grid>

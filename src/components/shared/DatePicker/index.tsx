@@ -1,13 +1,13 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import {
-  DesktopDatePicker as MuiDatePicker,
   DatePickerProps,
+  DesktopDatePicker as MuiDatePicker,
   LocalizationProvider,
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import ptBR from 'dayjs/locale/pt-br';
 import { Control, Controller } from 'react-hook-form';
-import { parseDateToISOString } from 'utils/parseDateToISOString';
+import parseDateToISOString from 'utils/parseDateToISOString';
 
 export type DatePickerComponentProps = Omit<
   DatePickerProps,
@@ -39,17 +39,15 @@ export default function DatePicker({
               const parsedDate = parseDateToISOString(selectionState || date);
               onChange(parsedDate);
             }}
-            renderInput={params => {
-              return (
-                <TextField
-                  {...params}
-                  error={!!error}
-                  helperText={error && error?.message}
-                  onBlur={onBlur}
-                  required={rest.required}
-                />
-              );
-            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                error={!!error}
+                helperText={error && error?.message}
+                onBlur={onBlur}
+                required={rest.required}
+              />
+            )}
             disableOpenPicker
           />
         </LocalizationProvider>
