@@ -1,4 +1,4 @@
-export const palette = {
+export default {
   primary: {
     main: '#363435',
   },

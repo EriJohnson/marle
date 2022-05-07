@@ -1,4 +1,4 @@
-export const typography = {
+export default {
   fontFamily: "'Inter','Arial'",
   h1: {
     fontWeight: 700,

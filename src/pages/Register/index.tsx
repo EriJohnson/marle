@@ -10,12 +10,16 @@ import {
 } from '@mui/material';
 import DatePicker from 'components/shared/DatePicker';
 import PhoneInput from 'components/shared/PhoneInput';
-import dayjs from 'dayjs';
+import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
+import UsersService from 'services/UsersService';
+import { User } from 'types/User';
 import validationSchema from './validationSchema';
 
 export default function Register() {
+  const { enqueueSnackbar } = useSnackbar();
+
   const form = useForm({
     resolver: yupResolver(validationSchema),
     mode: 'onTouched',
@@ -28,9 +32,14 @@ export default function Register() {
     control,
   } = form;
 
-  const onSubmit = (data: any) => {
-    console.log(JSON.stringify(data, null, 2));
-  };
+  async function onSubmit(data: Partial<User>) {
+    try {
+      await UsersService.create(data);
+      enqueueSnackbar(`Cadastro realizado com sucesso`, { variant: 'success' });
+    } catch ({ message }) {
+      enqueueSnackbar(`${message}`, { variant: 'error' });
+    }
+  }
 
   return (
     <Container maxWidth="sm" disableGutters>
@@ -97,9 +106,6 @@ export default function Register() {
               control={control}
               openTo="year"
               views={['year', 'month', 'day']}
-              minDate={dayjs().subtract(100, 'year')}
-              maxDate={dayjs().subtract(1, 'year')}
-              disableFuture
               required
             />
           </Grid>
@@ -151,7 +157,6 @@ export default function Register() {
                 to="/"
                 variant="body1"
                 sx={{ ml: 0.5, fontWeight: 500 }}
-                tabIndex={-1}
               >
                 Fazer login
               </Link>
