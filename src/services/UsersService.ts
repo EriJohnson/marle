@@ -1,10 +1,10 @@
-import { User } from 'types/User';
+import User from 'types/User';
 import HttpClient from './utils/HttpClient';
 
 const baseURL = import.meta.env.VITE_BASE_API_URL;
 
 class UsersService {
-  httpClient: HttpClient;
+  private httpClient: HttpClient;
 
   constructor() {
     this.httpClient = new HttpClient(baseURL);

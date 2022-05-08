@@ -14,7 +14,7 @@ import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import UsersService from 'services/UsersService';
-import { User } from 'types/User';
+import User from 'types/User';
 import validationSchema from './validationSchema';
 
 export default function Register() {

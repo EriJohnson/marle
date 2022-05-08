@@ -1,10 +1,10 @@
-import { Auth } from 'types/Auth';
+import Auth from 'types/Auth';
 import HttpClient from './utils/HttpClient';
 
 const baseURL = import.meta.env.VITE_BASE_API_URL;
 
 class AuthService {
-  httpClient: HttpClient;
+  private httpClient: HttpClient;
 
   constructor() {
     this.httpClient = new HttpClient(baseURL);

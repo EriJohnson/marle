@@ -14,7 +14,7 @@ type Role = {
   LEADER: 'LEADER';
 };
 
-export type User = {
+type User = {
   id?: string;
   email: string;
   fullName: string;
@@ -28,3 +28,5 @@ export type User = {
   createdAt?: string | Date;
   updatedAt?: string | Date;
 };
+
+export default User;
