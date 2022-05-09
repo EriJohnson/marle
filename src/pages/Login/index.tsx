@@ -1,5 +1,5 @@
+import LoadingButton from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
@@ -8,16 +8,34 @@ import Typography from '@mui/material/Typography';
 import backgroundImage from 'assets/images/login-background-01.jpg';
 import oanseLogo from 'assets/images/oanse-logo.png';
 import Copyright from 'components/shared/Copyright';
+import { AuthContext } from 'contexts/AuthContext';
+import { useSnackbar } from 'notistack';
+import { useContext, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function Login() {
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { handleLogin } = useContext(AuthContext);
+  const { enqueueSnackbar } = useSnackbar();
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    const identifier = String(data.get('identifier'));
+    const password = String(data.get('password'));
+
+    try {
+      setIsLoading(true);
+
+      await handleLogin({ identifier, password });
+    } catch ({ message }) {
+      enqueueSnackbar(`${message}`, { variant: 'error' });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -64,9 +82,9 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="identifier"
               label="Email ou usuário"
-              name="email"
+              name="identifier"
               autoComplete="email"
               autoFocus
             />
@@ -81,16 +99,17 @@ export default function Login() {
               autoComplete="current-password"
             />
 
-            <Button
+            <LoadingButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3 }}
               color="secondary"
               size="large"
+              loading={isLoading}
             >
               Entrar
-            </Button>
+            </LoadingButton>
 
             <Grid container justifyContent="center" sx={{ mt: 4 }}>
               <Grid item>

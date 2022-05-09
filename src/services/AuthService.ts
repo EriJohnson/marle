@@ -10,9 +10,15 @@ class AuthService {
     this.httpClient = new HttpClient(baseURL);
   }
 
-  async login(data: Auth) {
-    const response = await this.httpClient.post('/auth/login', data);
-    return response;
+  async login(payload: Auth) {
+    const { data } = await this.httpClient.post('/auth/login', payload);
+
+    const parsedToken = `Bearer ${data?.token}`;
+
+    this.httpClient.axiosInstance.defaults.headers.common.Authorization =
+      parsedToken;
+
+    return data;
   }
 }
 
