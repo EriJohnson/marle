@@ -12,13 +12,15 @@ import DateInput from 'components/shared/DateInput';
 import PhoneInput from 'components/shared/PhoneInput';
 import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import UsersService from 'services/UsersService';
 import { User } from 'types/User';
+import parseDateToISOString from 'utils/parseDateToISOString';
 import validationSchema from './validationSchema';
 
 export default function Register() {
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: yupResolver(validationSchema),
@@ -32,22 +34,28 @@ export default function Register() {
     control,
   } = form;
 
-  async function onSubmit(data: Partial<User>) {
+  async function onSubmit(data: User) {
+    const payload = {
+      ...data,
+      birthdate: parseDateToISOString(data.birthdate),
+    };
+
     try {
-      await UsersService.create(data);
+      await UsersService.create(payload);
       enqueueSnackbar(`Cadastro realizado com sucesso`, { variant: 'success' });
+      navigate('/');
     } catch ({ message }) {
       enqueueSnackbar(`${message}`, { variant: 'error' });
     }
   }
 
   return (
-    <Container maxWidth="sm" disableGutters>
+    <Container maxWidth="xs" disableGutters>
       <Paper
         variant="outlined"
         sx={{
           height: { xs: '100vh', sm: '100%' },
-          my: { xs: 0, sm: 5 },
+          my: { xs: 0 },
           px: { xs: 3, sm: 5 },
           py: 5,
         }}
@@ -75,6 +83,7 @@ export default function Register() {
               {...register('fullName')}
               helperText={errors.fullName?.message}
               label="Nome completo"
+              size="small"
               required
             />
           </Grid>
@@ -86,6 +95,7 @@ export default function Register() {
               helperText={errors.email?.message}
               label="Email"
               type="email"
+              size="small"
               required
             />
           </Grid>
@@ -95,6 +105,7 @@ export default function Register() {
               name="phone"
               label="Telefone"
               control={control}
+              size="small"
               required
             />
           </Grid>
@@ -104,6 +115,7 @@ export default function Register() {
               name="birthdate"
               label="Data de nascimento"
               control={control}
+              size="small"
               required
             />
           </Grid>
@@ -116,6 +128,7 @@ export default function Register() {
               label="Nome de usuário"
               inputProps={{ maxLength: 24 }}
               autoComplete="off"
+              size="small"
               required
             />
           </Grid>
@@ -128,6 +141,7 @@ export default function Register() {
               label="Senha"
               type="password"
               autoComplete="new-password"
+              size="small"
               required
             />
           </Grid>
@@ -140,12 +154,13 @@ export default function Register() {
               type="submit"
               disabled={!isValid}
               loading={isSubmitting}
+              size="small"
             >
               Criar conta
             </LoadingButton>
           </Grid>
 
-          <Grid container justifyContent="center" sx={{ mt: 4 }}>
+          <Grid container justifyContent="center" sx={{ my: 4 }}>
             <Grid item>
               <Typography sx={{ display: 'inline' }} variant="body2">
                 Já possui uma conta?

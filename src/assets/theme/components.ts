@@ -6,7 +6,7 @@ export default {
     styleOverrides: {
       root: {
         borderRadius: 8,
-        padding: 16,
+        padding: 8,
       },
     },
   },
@@ -20,6 +20,7 @@ export default {
   MuiTextField: {
     defaultProps: {
       fullWidth: true,
+      size: 'small',
     },
   },
 };
