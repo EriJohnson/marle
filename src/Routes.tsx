@@ -1,16 +1,25 @@
+import PrivateRoute from 'components/shared/PrivateRoute';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
-import { BrowserRouter, Route, Routes as Router } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-export default function Routes() {
+export default function ApplicationRoutes() {
   return (
-    <BrowserRouter>
-      <Router>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<h1>Seja bem-vindo(a)</h1>} />
-        <Route path="*" element={<h1>Not found</h1>} />
-      </Router>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      {/* Privates Routes */}
+      <Route
+        path="/home"
+        element={
+          <PrivateRoute>
+            <h1>Seja bem-vindo(a)</h1>
+          </PrivateRoute>
+        }
+      />
+
+      <Route path="*" element={<h1>Not found</h1>} />
+    </Routes>
   );
 }

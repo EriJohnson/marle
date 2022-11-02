@@ -1,21 +1,26 @@
+import { LoadingButton } from '@mui/lab';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import backgroundImage from 'assets/images/login-background-01.jpg';
+import backgroundImage from 'assets/images/login-background-01.webp';
 import oanseLogo from 'assets/images/oanse-logo.png';
 import Copyright from 'components/shared/Copyright';
+import useAuth from 'hooks/useAuth';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function Login() {
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const { isLoading, handleLogin } = useAuth();
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+
+    await handleLogin({
+      identifier: data.get('identifier'),
       password: data.get('password'),
     });
   }
@@ -66,7 +71,7 @@ export default function Login() {
               fullWidth
               id="email"
               label="Email ou usuário"
-              name="email"
+              name="identifier"
               autoComplete="email"
               autoFocus
             />
@@ -81,16 +86,17 @@ export default function Login() {
               autoComplete="current-password"
             />
 
-            <Button
+            <LoadingButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3 }}
               color="secondary"
               size="large"
+              loading={isLoading}
             >
               Entrar
-            </Button>
+            </LoadingButton>
 
             <Grid container justifyContent="center" sx={{ mt: 4 }}>
               <Grid item>

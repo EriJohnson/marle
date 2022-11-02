@@ -19,12 +19,17 @@ class HttpClient {
     this.axiosInstance = axios.create({ baseURL });
   }
 
-  async post(path: string, data: unknown) {
+  async post(path: string, data: unknown): Promise<unknown> {
     try {
-      await this.axiosInstance.post(path, data);
+      const response = await this.axiosInstance.post(path, data);
+      return response.data;
     } catch (error) {
       this._handleError(error);
     }
+  }
+
+  setAuthorization(token?: string) {
+    this.axiosInstance.defaults.headers.common.authorization = `Bearer ${token}`;
   }
 }
 
