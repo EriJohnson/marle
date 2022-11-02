@@ -3,7 +3,7 @@ import { forwardRef, RefCallback } from 'react';
 import { ChangeHandler, Control, Controller } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
 
-type PhoneInputProps = TextFieldProps & {
+type DateInputProps = TextFieldProps & {
   name: string;
   control: Control;
 };
@@ -13,17 +13,12 @@ interface CustomProps {
   name: string;
 }
 
-export function getPhoneRawValue(phone: string) {
-  return phone.replace(/\D+/g, '');
-}
-
 const PhoneMaskInput = forwardRef<HTMLElement, CustomProps>((props, ref) => {
   const { onChange, ...other } = props;
   return (
     <IMaskInput
       {...other}
-      mask="(#0) 00000-0000"
-      definitions={{ '#': /[1-9]/ }}
+      mask="00/00/0000"
       inputRef={ref as RefCallback<HTMLInputElement>}
       onAccept={(value: unknown) =>
         onChange({ target: { name: props.name, value } })
@@ -33,11 +28,11 @@ const PhoneMaskInput = forwardRef<HTMLElement, CustomProps>((props, ref) => {
   );
 });
 
-export default function PhoneInput({
+export default function DateInput({
   name,
   control,
   ...rest
-}: PhoneInputProps): JSX.Element {
+}: DateInputProps): JSX.Element {
   return (
     <Controller
       control={control}
@@ -47,7 +42,7 @@ export default function PhoneInput({
           {...rest}
           {...field}
           onChange={({ target: { value } }) => {
-            field.onChange(getPhoneRawValue(value));
+            field.onChange(value);
           }}
           error={!!error}
           helperText={error && error?.message}

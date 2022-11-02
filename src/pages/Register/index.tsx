@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import DatePicker from 'components/shared/DatePicker';
+import DateInput from 'components/shared/DateInput';
 import PhoneInput from 'components/shared/PhoneInput';
 import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
@@ -100,12 +100,10 @@ export default function Register() {
           </Grid>
 
           <Grid item xs={12}>
-            <DatePicker
+            <DateInput
               name="birthdate"
               label="Data de nascimento"
               control={control}
-              openTo="year"
-              views={['year', 'month', 'day']}
               required
             />
           </Grid>
