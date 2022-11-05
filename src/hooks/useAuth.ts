@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthService from 'services/AuthService';
+import { useSnackbar } from 'notistack';
 import useLocalStorage from './useLocalStorage';
 
 export default function useAuth() {
@@ -10,10 +11,11 @@ export default function useAuth() {
   const navigate = useNavigate();
   const location = useLocation();
   const [token, seToken] = useLocalStorage<string>('token', '');
+  const { enqueueSnackbar } = useSnackbar();
 
   // Retorna para página que o usuário estava tentando acessar antes de
   // fazer o login
-  const from = location.state?.from?.pathname || '/home';
+  const from = location.state?.from?.pathname || '/';
 
   useEffect(() => {
     if (token) {
@@ -25,15 +27,18 @@ export default function useAuth() {
   }, []);
 
   async function handleLogin(data: any) {
-    setIsLoading(true);
-    const response: any = await AuthService.login(data);
-
-    seToken(response.token);
-    AuthService.httpClient.setAuthorization(response.token);
-
-    setIsAuthenticated(true);
-    setIsLoading(false);
-    navigate(from, { replace: true });
+    try {
+      setIsLoading(true);
+      const response: any = await AuthService.login(data);
+      AuthService.httpClient.setAuthorization(response.token);
+      seToken(response.token);
+      setIsAuthenticated(true);
+      navigate(from, { replace: true });
+    } catch ({ message }) {
+      enqueueSnackbar(`${message}`, { variant: 'error' });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   function handleLogout() {
