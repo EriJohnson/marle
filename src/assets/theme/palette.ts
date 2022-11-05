@@ -1,4 +1,7 @@
 export default {
+  background: {
+    default: '#fafafa',
+  },
   primary: {
     main: '#363435',
   },

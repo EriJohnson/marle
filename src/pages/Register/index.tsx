@@ -50,7 +50,7 @@ export default function Register() {
   }
 
   return (
-    <Container maxWidth="xs" disableGutters>
+    <Container maxWidth="sm" disableGutters>
       <Paper
         variant="outlined"
         sx={{
@@ -61,9 +61,7 @@ export default function Register() {
         }}
         color="secondary"
       >
-        <Typography variant="h4" gutterBottom>
-          Bem-vindo(a)
-        </Typography>
+        <Typography variant="h4">Bem-vindo(a)</Typography>
         <Typography variant="subtitle2" color="text.secondary">
           Por favor, crie sua conta com seus dados pessoais.
         </Typography>
@@ -81,7 +79,7 @@ export default function Register() {
             <TextField
               error={!!errors.fullName}
               {...register('fullName')}
-              helperText={errors.fullName?.message}
+              helperText={errors.fullName?.message as string}
               label="Nome completo"
               size="small"
               required
@@ -92,7 +90,7 @@ export default function Register() {
             <TextField
               {...register('email')}
               error={!!errors.email}
-              helperText={errors.email?.message}
+              helperText={errors.email?.message as string}
               label="Email"
               type="email"
               size="small"
@@ -120,11 +118,11 @@ export default function Register() {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <TextField
               {...register('username')}
               error={!!errors.username}
-              helperText={errors.username?.message}
+              helperText={errors?.username?.message as string}
               label="Nome de usuário"
               inputProps={{ maxLength: 24 }}
               autoComplete="off"
@@ -133,11 +131,11 @@ export default function Register() {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <TextField
               {...register('password')}
               error={!!errors.password}
-              helperText={errors.password?.message}
+              helperText={errors?.password?.message as string}
               label="Senha"
               type="password"
               autoComplete="new-password"
