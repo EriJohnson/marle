@@ -12,7 +12,6 @@ class AuthService {
 
   async login(data: Partial<User>) {
     const response: any = await this.httpClient.post('/auth/login', data);
-
     this.httpClient.setAuthorization(response.token);
 
     return response;
