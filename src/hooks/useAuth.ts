@@ -33,6 +33,7 @@ export default function useAuth() {
       AuthService.httpClient.setAuthorization(response.token);
       seToken(response.token);
       setIsAuthenticated(true);
+
       navigate(from, { replace: true });
     } catch ({ message }) {
       enqueueSnackbar(`${message}`, { variant: 'error' });
@@ -45,7 +46,8 @@ export default function useAuth() {
     setIsAuthenticated(false);
     localStorage.removeItem('token');
     AuthService.httpClient.setAuthorization(undefined);
-    navigate('/');
+
+    navigate('/login');
   }
 
   return { isAuthenticated, isLoading, handleLogin, handleLogout };

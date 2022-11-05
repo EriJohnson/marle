@@ -165,7 +165,7 @@ export default function Register() {
               </Typography>
               <Link
                 component={RouterLink}
-                to="/"
+                to="/login"
                 variant="body1"
                 sx={{ ml: 0.5, fontWeight: 500 }}
               >

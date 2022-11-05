@@ -105,7 +105,7 @@ export default function Login() {
                 </Typography>
                 <Link
                   component={RouterLink}
-                  to="register"
+                  to="/register"
                   variant="body1"
                   sx={{ ml: 0.5, fontWeight: 'bold' }}
                 >
