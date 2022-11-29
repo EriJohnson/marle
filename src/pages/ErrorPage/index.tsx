@@ -1,7 +1,17 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-export default function Page404() {
+interface IErrorPage {
+  title?: string;
+  message?: string;
+  redirectPath?: string;
+}
+
+export default function ErrorPage({
+  title,
+  message,
+  redirectPath,
+}: IErrorPage) {
   return (
     <Container maxWidth="sm">
       <Box
@@ -16,20 +26,21 @@ export default function Page404() {
         }}
       >
         <Typography variant="h4" gutterBottom>
-          Página não encontrada!
+          {title || 'Página não encontrada!'}
         </Typography>
 
         <Typography sx={{ color: 'text.secondary' }}>
-          Desculpe, não conseguimos encontrar a página que você está procurando.
+          {message ||
+            `Desculpe, não conseguimos encontrar a página que você está procurando.
           Talvez você tenha digitado incorretamente a URL? Certifique-se de ter
-          digitado corretamente.
+          digitado corretamente.`}
         </Typography>
 
         <Button
           fullWidth
           color="secondary"
           size="small"
-          to="/"
+          to={redirectPath || '/'}
           variant="contained"
           component={RouterLink}
           sx={{ mt: 4 }}

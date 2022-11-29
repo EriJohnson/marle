@@ -3,6 +3,11 @@ import HttpClient from './utils/HttpClient';
 
 const baseURL = import.meta.env.VITE_BASE_API_URL;
 
+interface IAuthServiceData {
+  token: string;
+  user: Partial<User>;
+}
+
 class AuthService {
   httpClient: HttpClient;
 
@@ -10,11 +15,15 @@ class AuthService {
     this.httpClient = new HttpClient(baseURL);
   }
 
-  async login(data: Partial<User>) {
-    const response: any = await this.httpClient.post('/auth/login', data);
-    this.httpClient.setAuthorization(response.token);
+  async login(payload: Partial<User>) {
+    const { data }: { data: IAuthServiceData } = await this.httpClient.post(
+      '/auth/login',
+      payload
+    );
 
-    return response;
+    this.httpClient.setAuthorization(data.token);
+
+    return data;
   }
 }
 

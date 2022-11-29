@@ -19,10 +19,9 @@ class HttpClient {
     this.axiosInstance = axios.create({ baseURL });
   }
 
-  async post(path: string, data: unknown): Promise<unknown> {
+  async post(path: string, data: unknown): Promise<any> {
     try {
-      const response = await this.axiosInstance.post(path, data);
-      return response.data;
+      return await this.axiosInstance.post(path, data);
     } catch (error) {
       this._handleError(error);
     }

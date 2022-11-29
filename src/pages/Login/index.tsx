@@ -20,8 +20,8 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
 
     await handleLogin({
-      identifier: data.get('identifier'),
-      password: data.get('password'),
+      identifier: data.get('identifier').toString(),
+      password: data.get('password').toString(),
     });
   }
 
