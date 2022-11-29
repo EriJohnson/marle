@@ -51,6 +51,7 @@ export default function Layout() {
               sx={{
                 py: 3,
               }}
+              onClick={handleDrawerToggle}
             >
               <ListItemIcon>
                 <LeadersIcon />
