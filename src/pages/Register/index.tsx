@@ -13,7 +13,6 @@ import PhoneInput from 'components/shared/PhoneInput';
 import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import UsersService from 'services/UsersService';
 import { User } from 'types/User';
 import parseDateToISOString from 'utils/parseDateToISOString';
 import validationSchema from './validationSchema';
@@ -41,7 +40,7 @@ export default function Register() {
     };
 
     try {
-      await UsersService.create(payload);
+      // await UsersService.create(payload);
       enqueueSnackbar(`Cadastro realizado com sucesso`, { variant: 'success' });
       navigate('/');
     } catch ({ message }) {

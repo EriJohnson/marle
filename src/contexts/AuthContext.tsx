@@ -1,33 +1,33 @@
+import axios from 'axios';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { useSnackbar } from 'notistack';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import AuthService from 'services/AuthService';
-import { User } from 'types/User';
 
-interface ILoginProps {
-  identifier: string;
-  password: string;
-}
+import { ILoginRequest, LoggedUser, login } from 'services/authService';
 
 interface IAuthContext {
-  user: Partial<User>;
+  user?: LoggedUser;
   isLoading: boolean;
   isAuthenticated: boolean;
-  handleLogin: (data: ILoginProps) => Promise<void>;
+  handleLogin: (payload: ILoginRequest) => Promise<void>;
   handleLogout: () => void;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<Partial<User>>({} as User);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
   const location = useLocation();
   const [token, setToken] = useLocalStorage<string | undefined>('token', '');
+
+  const [user, setUser] = useLocalStorage<LoggedUser | undefined>(
+    'user',
+    undefined
+  );
   const { enqueueSnackbar } = useSnackbar();
 
   // Retorna para página que o usuário estava tentando acessar antes de
@@ -36,22 +36,20 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (token) {
-      AuthService.httpClient.setAuthorization(token);
+      axios.defaults.headers.common.authorization = `Bearer ${token}`;
       setIsAuthenticated(true);
     }
 
     setIsLoading(false);
   }, []);
 
-  async function handleLogin(data: any) {
+  async function handleLogin(payload: ILoginRequest) {
     try {
       setIsLoading(true);
 
-      const response = await AuthService.login(data);
+      const response = await login(payload);
 
       setUser(response?.user);
-
-      AuthService.httpClient.setAuthorization(response?.token);
 
       setToken(response?.token);
 
@@ -66,10 +64,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   function handleLogout() {
-    setUser(null);
     setIsAuthenticated(false);
     setToken(undefined);
-    AuthService.httpClient.setAuthorization(undefined);
+    setUser(undefined);
+
+    delete axios.defaults.headers.common.authorization;
 
     navigate('/login');
   }

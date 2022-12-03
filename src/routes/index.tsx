@@ -26,14 +26,25 @@ export default function ApplicationRoutes() {
       <Route path="/register" element={<Register />} />
 
       <Route
-        path="/not-authorized"
+        path="/forbidden"
         element={
           <ErrorPage
-            title="Acesso não autorizado!"
-            message="Talvez você não tenha permissão para acessar este recurso. Entre em contanto com o diácono do OANSE ou com o administrador do sistema para lhe dar a devida permissão."
+            title="Acesso negado!"
+            message="Desculpe, mas talvez você não tenha permissão para acessar este recurso. Entre em contanto com o diácono do OANSE ou com o administrador do sistema para lhe dar a devida permissão."
           />
         }
       />
+
+      <Route
+        path="/unauthorized"
+        element={
+          <ErrorPage
+            title="Acesso não autorizado!"
+            message="Desculpe, mas você não forneceu suas credencias para acessar a aplicação. Volte para a página de login e entre com seu identificador e senha."
+          />
+        }
+      />
+
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

@@ -1,30 +1,22 @@
 import { User } from 'types/User';
-import HttpClient from './utils/HttpClient';
+import api from './utils/api';
 
-const baseURL = import.meta.env.VITE_BASE_API_URL;
+export type LoggedUser = Pick<User, 'id' | 'fullName' | 'role' | 'club'>;
 
-interface IAuthServiceData {
+export interface ILoginResponse {
   token: string;
-  user: Partial<User>;
+  user: LoggedUser;
 }
 
-class AuthService {
-  httpClient: HttpClient;
-
-  constructor() {
-    this.httpClient = new HttpClient(baseURL);
-  }
-
-  async login(payload: Partial<User>) {
-    const { data }: { data: IAuthServiceData } = await this.httpClient.post(
-      '/auth/login',
-      payload
-    );
-
-    this.httpClient.setAuthorization(data.token);
-
-    return data;
-  }
+export interface ILoginRequest {
+  identifier: string;
+  password: string;
 }
 
-export default new AuthService();
+export async function login(payload: ILoginRequest) {
+  const { data } = await api.post<ILoginResponse>('/auth/login', payload);
+
+  api.defaults.headers.common.authorization = `Bearer ${data.token}`;
+
+  return data;
+}
