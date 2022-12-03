@@ -13,6 +13,7 @@ import PhoneInput from 'components/shared/PhoneInput';
 import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import UserService from 'services/api/services/user';
 import { User } from 'types/User';
 import parseDateToISOString from 'utils/parseDateToISOString';
 import validationSchema from './validationSchema';
@@ -40,8 +41,12 @@ export default function Register() {
     };
 
     try {
-      // await UsersService.create(payload);
-      enqueueSnackbar(`Cadastro realizado com sucesso`, { variant: 'success' });
+      await UserService.create(payload);
+
+      enqueueSnackbar(`Cadastro realizado com sucesso`, {
+        variant: 'success',
+      });
+
       navigate('/');
     } catch ({ message }) {
       enqueueSnackbar(`${message}`, { variant: 'error' });
@@ -49,11 +54,19 @@ export default function Register() {
   }
 
   return (
-    <Container maxWidth="sm" disableGutters>
+    <Container
+      maxWidth="sm"
+      disableGutters
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        height: '100vh',
+      }}
+    >
       <Paper
         variant="outlined"
         sx={{
-          height: { xs: '100vh', sm: '100%' },
           my: { xs: 0 },
           px: { xs: 3, sm: 5 },
           py: 5,
@@ -157,7 +170,7 @@ export default function Register() {
             </LoadingButton>
           </Grid>
 
-          <Grid container justifyContent="center" sx={{ my: 4 }}>
+          <Grid container justifyContent="center" sx={{ mt: 4 }}>
             <Grid item>
               <Typography sx={{ display: 'inline' }} variant="body2">
                 Já possui uma conta?

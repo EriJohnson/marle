@@ -94,6 +94,7 @@ export default function Login() {
               color="secondary"
               size="large"
               loading={isLoading}
+              disableRipple
             >
               Entrar
             </LoadingButton>

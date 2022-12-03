@@ -3,8 +3,10 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import { useSnackbar } from 'notistack';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-import { ILoginRequest, LoggedUser, login } from 'services/authService';
+import AuthService, {
+  ILoginRequest,
+  LoggedUser,
+} from 'services/api/services/auth';
 
 interface IAuthContext {
   user?: LoggedUser;
@@ -47,7 +49,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setIsLoading(true);
 
-      const response = await login(payload);
+      const response = await AuthService.login(payload);
 
       setUser(response?.user);
 

@@ -9,6 +9,9 @@ import RequirePermission from './RequirePermission';
 export default function ApplicationRoutes() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
       <Route element={<Layout />}>
         <Route path="/" element={<RequireAuth />}>
           <Route
@@ -21,9 +24,6 @@ export default function ApplicationRoutes() {
           />
         </Route>
       </Route>
-
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
 
       <Route
         path="/forbidden"

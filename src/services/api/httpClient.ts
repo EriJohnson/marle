@@ -3,11 +3,11 @@ import axios from 'axios';
 const baseURL = import.meta.env.VITE_BASE_API_URL;
 const { origin } = window.location;
 
-const instance = axios.create({
+const httpClient = axios.create({
   baseURL,
 });
 
-instance.interceptors.response.use(
+httpClient.interceptors.response.use(
   (response) => response,
 
   (error) => {
@@ -27,4 +27,4 @@ instance.interceptors.response.use(
   }
 );
 
-export default instance;
+export default httpClient;

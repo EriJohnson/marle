@@ -119,7 +119,9 @@ export default function Layout() {
             >
               <Avatar
                 {...stringAvatar(user?.fullName)}
-                sx={{ bgcolor: (theme: Theme) => theme.palette.secondary.dark }}
+                sx={{
+                  bgcolor: (theme: Theme) => theme.palette.primary.main,
+                }}
               />
             </IconButton>
           </div>

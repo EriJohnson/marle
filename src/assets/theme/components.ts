@@ -1,3 +1,5 @@
+import { MuiStyledOptions } from '@mui/system';
+
 export default {
   MuiButton: {
     defaultProps: {
