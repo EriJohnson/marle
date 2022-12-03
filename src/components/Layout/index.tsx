@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import LeadersIcon from '@mui/icons-material/SupervisorAccount';
 import { Avatar, Theme } from '@mui/material';
@@ -30,9 +30,9 @@ function stringAvatar(name?: string) {
 
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user } = useAuth();
 
-  const { handleLogout } = useAuth();
+  const { user, handleLogout } = useAuth();
+  const location = useLocation();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -43,11 +43,12 @@ export default function Layout() {
       <Toolbar />
       <Divider />
       <List disablePadding>
-        {['Líderes'].map((text) => (
-          <ListItem key={text} disablePadding>
+        {[{ text: 'Líderes', pathname: '/leaders' }].map((item) => (
+          <ListItem key={item.pathname} disablePadding>
             <ListItemButton
               component={Link}
               to="leaders"
+              selected={item.pathname === location.pathname}
               sx={{
                 py: 3,
               }}
@@ -56,7 +57,7 @@ export default function Layout() {
               <ListItemIcon>
                 <LeadersIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
         ))}
