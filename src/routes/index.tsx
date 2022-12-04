@@ -4,6 +4,7 @@ import Login from 'pages/Login';
 import ErrorPage from 'pages/ErrorPage';
 import Register from 'pages/Register';
 import { Route, Routes } from 'react-router-dom';
+import Leaders from 'pages/Leaders';
 import RequirePermission from './RequirePermission';
 
 export default function ApplicationRoutes() {
@@ -18,7 +19,7 @@ export default function ApplicationRoutes() {
             path="leaders"
             element={
               <RequirePermission requiredRoles={['DEACON', 'ADMIN']}>
-                <h1>Líderes</h1>
+                <Leaders />
               </RequirePermission>
             }
           />

@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import LeadersIcon from '@mui/icons-material/SupervisorAccount';
-import { Avatar, Theme } from '@mui/material';
+import { Avatar, Container, Theme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -90,7 +90,7 @@ export default function Layout() {
       <AppBar
         color="secondary"
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, boxShadow: 'none' }}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <IconButton
@@ -167,12 +167,15 @@ export default function Layout() {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+          px: 2,
+          py: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
-        <Outlet />
+        <Container maxWidth="lg" disableGutters>
+          <Outlet />
+        </Container>
       </Box>
     </Box>
   );

@@ -1,8 +1,8 @@
-import axios from 'axios';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { useSnackbar } from 'notistack';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import httpClient from 'services/api/httpClient';
 import AuthService, {
   ILoginRequest,
   LoggedUser,
@@ -24,12 +24,12 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [token, setToken] = useLocalStorage<string | undefined>('token', '');
 
   const [user, setUser] = useLocalStorage<LoggedUser | undefined>(
     'user',
     undefined
   );
+
   const { enqueueSnackbar } = useSnackbar();
 
   // Retorna para página que o usuário estava tentando acessar antes de
@@ -37,8 +37,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const from = location.state?.from?.pathname || '/';
 
   useEffect(() => {
+    const token = localStorage.getItem('OANSE@token');
+
     if (token) {
-      axios.defaults.headers.common.authorization = `Bearer ${token}`;
+      httpClient.defaults.headers.common.authorization = `Bearer ${token}`;
       setIsAuthenticated(true);
     }
 
@@ -53,8 +55,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setUser(response?.user);
 
-      setToken(response?.token);
-
       setIsAuthenticated(true);
 
       navigate(from, { replace: true });
@@ -67,10 +67,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
   function handleLogout() {
     setIsAuthenticated(false);
-    setToken(undefined);
-    setUser(undefined);
 
-    delete axios.defaults.headers.common.authorization;
+    localStorage.removeItem('OANSE@user');
+    localStorage.removeItem('OANSE@token');
+
+    delete httpClient.defaults.headers.common.authorization;
 
     navigate('/login');
   }

@@ -7,6 +7,9 @@ const httpClient = axios.create({
   baseURL,
 });
 
+const token = localStorage.getItem('OANSE@token');
+httpClient.defaults.headers.common.authorization = `Bearer ${token}`;
+
 httpClient.interceptors.response.use(
   (response) => response,
 
@@ -19,9 +22,9 @@ httpClient.interceptors.response.use(
       window.location.href = `${origin}/forbidden`;
     }
 
-    if (error.response.status === 401 && error.config.url !== '/auth/login') {
-      window.location.href = `${origin}/unauthorized`;
-    }
+    // if (error.response.status === 401 && error.config.url !== '/auth/login') {
+    //   window.location.href = `${origin}/unauthorized`;
+    // }
 
     throw error.response.data;
   }

@@ -12,17 +12,7 @@ import { AuthProvider } from 'contexts/AuthContext';
 import { SnackbarProvider } from 'notistack';
 import Routes from 'routes';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: 1,
-      staleTime: 5 * 1000,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 export default function App() {
   return (

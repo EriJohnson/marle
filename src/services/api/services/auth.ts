@@ -22,6 +22,8 @@ const AuthService = {
 
     httpClient.defaults.headers.common.authorization = `Bearer ${data.token}`;
 
+    localStorage.setItem('OANSE@token', data.token);
+
     return data;
   },
 };
