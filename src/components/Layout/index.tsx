@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import LeadersIcon from '@mui/icons-material/SupervisorAccount';
-import { Avatar, Container, Theme } from '@mui/material';
+import { Avatar, Container, SxProps, Theme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -28,6 +28,11 @@ function stringAvatar(name?: string) {
   };
 }
 
+const listItemButtonPadding: SxProps = {
+  px: { xs: 1.5, sm: 4 },
+  py: { xs: 1.5, sm: 2 },
+};
+
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -49,9 +54,7 @@ export default function Layout() {
               component={Link}
               to="leaders"
               selected={item.pathname === location.pathname}
-              sx={{
-                py: 3,
-              }}
+              sx={listItemButtonPadding}
               onClick={handleDrawerToggle}
             >
               <ListItemIcon>
@@ -65,12 +68,7 @@ export default function Layout() {
       <Divider />
       <List disablePadding>
         <ListItem disablePadding>
-          <ListItemButton
-            onClick={handleLogout}
-            sx={{
-              py: 3,
-            }}
-          >
+          <ListItemButton onClick={handleLogout} sx={listItemButtonPadding}>
             <ListItemIcon>
               <LogoutIcon sx={{ color: ({ palette }) => palette.error.main }} />
             </ListItemIcon>
@@ -121,6 +119,11 @@ export default function Layout() {
                 {...stringAvatar(user?.fullName)}
                 sx={{
                   bgcolor: (theme: Theme) => theme.palette.primary.main,
+                  width: 36,
+                  height: 36,
+                  fontSize: '0.85rem',
+                  fontWeight: (theme: Theme) =>
+                    theme.typography.fontWeightMedium,
                 }}
               />
             </IconButton>
@@ -167,8 +170,7 @@ export default function Layout() {
         component="main"
         sx={{
           flexGrow: 1,
-          px: 2,
-          py: 3,
+          p: 2,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
