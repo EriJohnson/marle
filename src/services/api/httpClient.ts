@@ -22,9 +22,10 @@ httpClient.interceptors.response.use(
       window.location.href = `${origin}/forbidden`;
     }
 
-    // if (error.response.status === 401 && error.config.url !== '/auth/login') {
-    //   window.location.href = `${origin}/unauthorized`;
-    // }
+    if (error.response.status === 401 && error.config.url !== '/auth/login') {
+      window.location.href = `${origin}/unauthorized`;
+      localStorage.clear();
+    }
 
     throw error.response.data;
   }

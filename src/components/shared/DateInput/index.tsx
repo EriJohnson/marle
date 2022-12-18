@@ -13,7 +13,7 @@ interface CustomProps {
   name: string;
 }
 
-const PhoneMaskInput = forwardRef<HTMLElement, CustomProps>((props, ref) => {
+const DateMaskInput = forwardRef<HTMLElement, CustomProps>((props, ref) => {
   const { onChange, ...other } = props;
   return (
     <IMaskInput
@@ -46,7 +46,7 @@ export default function DateInput({
           }}
           error={!!error}
           helperText={error && error?.message}
-          InputProps={{ inputComponent: PhoneMaskInput as any }}
+          InputProps={{ inputComponent: DateMaskInput as any }}
           type="tel"
         />
       )}

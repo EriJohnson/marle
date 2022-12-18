@@ -9,7 +9,7 @@ import AuthService, {
 } from 'services/api/services/auth';
 
 interface IAuthContext {
-  user?: LoggedUser;
+  user: LoggedUser;
   isLoading: boolean;
   isAuthenticated: boolean;
   handleLogin: (payload: ILoginRequest) => Promise<void>;

@@ -1,13 +1,15 @@
-type Club = {
-  URSINHOS: 'URSINHOS';
-  FAISCA: 'FAISCA';
-  FLAMA: 'FLAMA';
-  TOCHA: 'TOCHA';
-  JV: 'JV';
-  GQ7: 'GQ7';
-};
+// export type Club = {
+//   URSINHOS: 'URSINHOS';
+//   FAISCA: 'FAISCA';
+//   FLAMA: 'FLAMA';
+//   TOCHA: 'TOCHA';
+//   JV: 'JV';
+//   GQ7: 'GQ7';
+// };
 
-type Role = {
+export type Club = 'URSINHOS' | 'FAISCA' | 'FLAMA' | 'TOCHA' | 'JV' | 'GQ7';
+
+export type Role = {
   ADMIN: 'ADMIN';
   DEACON: 'DEACON';
   DIRECTOR: 'DIRECTOR';
@@ -22,7 +24,7 @@ export type User = {
   username: string;
   password: string;
   phone?: string;
-  club?: Club;
+  club: Club;
   role?: Role;
   isActive?: boolean;
   createdAt?: string | Date;

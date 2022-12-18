@@ -17,7 +17,7 @@ export default function RequirePermission({
   if (requiredRoles?.length) {
     const userHasRequiredRole = requiredRoles?.includes(user?.role);
 
-    if (!userHasRequiredRole) {
+    if (!user?.role || !userHasRequiredRole) {
       return <Navigate to="/forbidden" state={{ from: location }} replace />;
     }
   }

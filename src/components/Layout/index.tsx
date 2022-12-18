@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import LeadersIcon from '@mui/icons-material/SupervisorAccount';
-import { Avatar, Container, SxProps, Theme } from '@mui/material';
+import { Container, SxProps, Theme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,14 +19,9 @@ import { useState } from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import useAuth from 'hooks/useAuth';
+import Avatar from 'components/shared/Avatar';
 
 const drawerWidth = 240;
-
-function stringAvatar(name?: string) {
-  return {
-    children: `${name?.split(' ')[0][0]}${name?.split(' ')[1][0]}`,
-  };
-}
 
 const listItemButtonPadding: SxProps = {
   px: { xs: 1.5, sm: 4 },
@@ -114,18 +109,9 @@ export default function Layout() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               color="inherit"
+              sx={{ p: 0 }}
             >
-              <Avatar
-                {...stringAvatar(user?.fullName)}
-                sx={{
-                  bgcolor: (theme: Theme) => theme.palette.primary.main,
-                  width: 36,
-                  height: 36,
-                  fontSize: '0.85rem',
-                  fontWeight: (theme: Theme) =>
-                    theme.typography.fontWeightMedium,
-                }}
-              />
+              <Avatar user={user} />
             </IconButton>
           </div>
         </Toolbar>
@@ -166,19 +152,20 @@ export default function Layout() {
           {drawer}
         </Drawer>
       </Box>
-      <Box
+      <Container
         component="main"
+        maxWidth="lg"
+        disableGutters
         sx={{
           flexGrow: 1,
-          p: 2,
+          px: { xs: 2, sm: 3 },
+          py: 2,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" disableGutters>
-          <Outlet />
-        </Container>
-      </Box>
+        <Outlet />
+      </Container>
     </Box>
   );
 }

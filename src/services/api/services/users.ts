@@ -6,6 +6,11 @@ const UsersService = {
     const response = await httpClient.post<User>('/users', request);
     return response;
   },
+
+  findAll: async () => {
+    const response = await httpClient.get<User[]>('/users');
+    return response.data;
+  },
 };
 
 export default UsersService;

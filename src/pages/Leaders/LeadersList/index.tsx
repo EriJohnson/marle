@@ -5,5 +5,5 @@ interface ILeadersList {
 }
 
 export default function LeadersList({ children }: ILeadersList) {
-  return <List sx={{ width: '100%' }}>{children}</List>;
+  return <List sx={{ mt: 1, p: 0, width: '100%' }}>{children}</List>;
 }
